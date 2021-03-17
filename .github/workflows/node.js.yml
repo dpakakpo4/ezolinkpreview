@@ -31,7 +31,7 @@ jobs:
       uses: twilio-labs/actions-sms@v1
       with:
         fromPhoneNumber: '+1(801)3354269'
-        toPhoneNumber: '+22898124393'
+        toPhoneNumber: '+22890479579'
         message: 'Hello from Twilio ${{ github.event.pusher.name }}'
       env:
         TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
