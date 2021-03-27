@@ -48,7 +48,7 @@ app.route('/getFacebookLink')
         const url = req.query.url;
         facebookGetLink(url)
             .then(response=>{
-                res.json({response:response})
+                res.json(response)
             });
     });
 
