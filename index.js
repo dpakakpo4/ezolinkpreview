@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const linkPreviewJs = require('link-preview-js');
+const facebookGetLink = require('facebook-video-link');
 const { getLinkPreview } = linkPreviewJs; 
 
 const app = express();
@@ -41,6 +42,15 @@ app.route('/getlinkpreview')
              }
          });
     })
+
+app.route('/getFacebookLink')
+    .get((req,res)=>{
+        const url = req.query.url;
+        facebookGetLink(url)
+            .then(response=>{
+                res.json({response:response})
+            });
+    });
 
 app.listen(port, () => {
     console.log(`app listening on port ${port}`)

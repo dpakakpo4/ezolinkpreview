@@ -14,8 +14,11 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "facebook-video-link": "^1.0.2",
+    "install": "^0.13.0",
     "link-preview-js": "^2.1.6",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "npm": "^7.7.5"
   },
   "engines": {
     "node": "15.x"
