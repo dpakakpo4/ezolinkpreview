@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const cors = require('cors');
+const axios = require("axios");
+const svg2img  = require('svg2img');
 const linkPreviewJs = require('link-preview-js');
 const facebookGetLink = require('facebook-video-link');
 const { getLinkPreview } = linkPreviewJs; 
+
 
 const app = express();
 app.use(cors());
@@ -11,6 +15,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
+
+const convertAllSvgFlagToImg =async (data,alpha3CodeTable) => {
+    for(i=0;i<data.length;i++){
+        let svgString;
+        let name = `${alpha3CodeTable[i]}.jpg`;
+        svgString = await axios.default.get(data[i]['flag']).then((response)=>{
+            return response.data;
+        })
+        await svg2img(svgString, {format:'jpg','quality':75}, function(error, buffer) {
+            //default jpeg quality is 75
+            
+            fs.writeFileSync(name, buffer);
+        });
+        
+    }
+}
 
 
 app.route('/getlinkpreview')
@@ -52,6 +72,18 @@ app.route('/getFacebookLink')
             });
     });
 
+app.route('/getCountriesData')
+    .get((req,res)=>{
+        axios.default.get(`https://restcountries.eu/rest/v2/all?fields=name;alpha3Code;flag;callingCodes`)
+            .then(response=>{
+                const countriesData = response.data;
+                const alpha3CodeTable= response.data.map((item)=>{
+                    return item.alpha3Code;
+                });
+                // convertAllSvgFlagToImg(countriesData,alpha3CodeTable);
+                res.json(countriesData[0]);
+            })
+    })
 app.listen(port, () => {
     console.log(`app listening on port ${port}`)
 })
