@@ -92,7 +92,7 @@ app.route("/getCountriesData").get((req, res) => {
 
 
   res.set("Content-type", "image/jpeg");
-  res.send(image);
+  res.json(alpha3CodeTable);
 });
 app.listen(port, () => {
   console.log(`app listening on port ${port}`);
