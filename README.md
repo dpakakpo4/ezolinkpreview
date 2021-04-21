@@ -1,7 +1,7 @@
 ### ezolinkpreview
 
 
-This is a list of many useful api's
+This is a list of a useful api
 
 > Call this to get a country flag over https
     https://ezolinkpreview.herokuapp.com/countries/TGO.jpg
